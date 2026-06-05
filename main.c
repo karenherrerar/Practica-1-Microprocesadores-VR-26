@@ -23,11 +23,17 @@
 void main(void){
     TRISD=0b00000000;    //cada 0 es un bit diferente, si todos los bits son 0 significa que todos los pines son salidas
     PORTD=0b00000000;    //manda 0 a todos para que no haya ningun voltaje residual
-    
+    unsigned char led=0b00000001;
     while(1){
-        PORTD = 0xF;
-        __delay_ms(500);
-        PORTD = 0x0;
-        __delay_ms(500);
+       for(int i=0;i<7;i++) {
+           PORTD=led;
+           __delay_ms(100);
+           led = led<<1;
+       }  
+       for (int i=0;i<7;i++){
+           PORTD= led;
+           __delay_ms(100);
+           led=led>>1;
+       }
     }
 }
